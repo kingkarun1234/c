@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>TapShare Contact Card</title>
+  <style>
+    :root {
+      --bg: #0b0e17;
+      --card-bg: #161b2e;
+      --card-border: rgba(139, 92, 246, 0.42);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-blue: #3b82f6;
+      --accent-violet: #8b5cf6;
+      --accent-pink: #ec4899;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.22), rgba(139, 92, 246, 0.12) 38%, var(--bg) 72%);
+      background-color: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 18px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      animation: cardEnter 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes cardEnter {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(96, 165, 250, 0.35);
+      color: #93c5fd;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #1e243d 0%, #131728 100%);
+      border: 1.5px solid var(--card-border);
+      border-radius: 28px;
+      padding: 28px 22px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 40px rgba(139, 92, 246, 0.18);
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet), var(--accent-pink));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 24px rgba(139, 92, 246, 0.4);
+    }
+
+    .name {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #ffffff;
+      word-break: break-word;
+    }
+
+    .company {
+      margin-top: 6px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #cbd5e1;
+      word-break: break-word;
+    }
+
+    .details-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(148, 163, 184, 0.16);
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(11, 14, 23, 0.55);
+      border-radius: 14px;
+      color: #e2e8f0;
+      text-decoration: none;
+      font-size: 16px;
+      word-break: break-all;
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .detail-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #60a5fa;
+      min-width: 68px;
+    }
+
+    .detail-value {
+      flex: 1;
+      color: #f1f5f9;
+      font-weight: 500;
+    }
+
+    .btn-save {
+      margin-top: 24px;
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      padding: 17px 20px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.35);
+      transition: transform 0.12s ease, opacity 0.12s ease;
+    }
+
+    .btn-save:active {
+      transform: scale(0.98);
+      opacity: 0.92;
+    }
+
+    .error-box {
+      text-align: center;
+      padding: 12px 6px;
+      color: #fca5a5;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .privacy-note {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="text-align: center;">
+      <span class="brand-pill">TapShare Contact Card</span>
+    </div>
+
+    <div class="card" id="card-root">
+      <!-- Populated by inline script -->
+    </div>
+
+    <p class="privacy-note">
+      100% Private: Contact details are decoded locally from the # link fragment on your phone and are never sent to any server.
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      function decodeBase64UrlUtf8(input) {
+        var b64 = input.replace(/-/g, '+').replace(/_/g, '/');
+        while (b64.length % 4 !== 0) {
+          b64 += '=';
+        }
+        var binary = atob(b64);
+        var bytes = new Uint8Array(binary.length);
+        for (var i = 0; i < binary.length; i++) {
+          bytes[i] = binary.charCodeAt(i);
+        }
+        return new TextDecoder('utf-8').decode(bytes);
+      }
+
+      function computeInitials(name) {
+        var trimmed = (name || '').trim();
+        if (!trimmed) return '?';
+        var parts = trimmed.split(/\s+/).filter(Boolean);
+        if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+        return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
+      }
+
+      function escapeVCardValue(val) {
+        return String(val || '')
+          .replace(/\\/g, '\\\\')
+          .replace(/\n/g, '\\n')
+          .replace(/;/g, '\\;')
+          .replace(/,/g, '\\,');
+      }
+
+      function buildVCard30(contact) {
+        var fullName = (contact.name || 'Contact').trim();
+        var parts = fullName.split(/\s+/);
+        var givenName = parts.length > 0 ? parts[0] : fullName;
+        var familyName = parts.length > 1 ? parts.slice(1).join(' ') : '';
+
+        var lines = [
+          'BEGIN:VCARD',
+          'VERSION:3.0',
+          'N:' + escapeVCardValue(familyName) + ';' + escapeVCardValue(givenName) + ';;;',
+          'FN:' + escapeVCardValue(fullName)
+        ];
+
+        if (contact.company) {
+          lines.push('ORG:' + escapeVCardValue(contact.company));
+        }
+        if (contact.phone) {
+          lines.push('TEL;TYPE=CELL:' + contact.phone.trim());
+        }
+        if (contact.email) {
+          lines.push('EMAIL;TYPE=INTERNET:' + contact.email.trim());
+        }
+        if (contact.website) {
+          lines.push('URL:' + contact.website.trim());
+        }
+
+        lines.push('END:VCARD');
+        return lines.join('\r\n') + '\r\n';
+      }
+
+      function downloadVCard(contact) {
+        var vcardText = buildVCard30(contact);
+        var safeFileName = ((contact.name || 'contact').trim().toLowerCase().replace(/[^a-z0-9]+/g, '_') || 'contact') + '.vcf';
+        var blob = new Blob([vcardText], { type: 'text/vcard;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', safeFileName);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(function () {
+          URL.revokeObjectURL(url);
+        }, 2000);
+      }
+
+      function parseFragment() {
+        var rawHash = window.location.hash ? window.location.hash.substring(1) : '';
+        rawHash = decodeURIComponent(rawHash.trim());
+        if (!rawHash) return null;
+
+        try {
+          var jsonStr = decodeBase64UrlUtf8(rawHash);
+          var arr = JSON.parse(jsonStr);
+          if (!Array.isArray(arr) || arr.length < 5) return null;
+          var contact = {
+            name: String(arr[0] || '').trim(),
+            phone: String(arr[1] || '').trim(),
+            email: String(arr[2] || '').trim(),
+            company: String(arr[3] || '').trim(),
+            website: String(arr[4] || '').trim()
+          };
+          if (!contact.name && !contact.phone && !contact.email && !contact.company && !contact.website) {
+            return null;
+          }
+          return contact;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function render() {
+        var root = document.getElementById('card-root');
+        root.textContent = '';
+
+        var contact = parseFragment();
+        if (!contact) {
+          var err = document.createElement('div');
+          err.className = 'error-box';
+          err.textContent = 'No contact card found in this link. Tap an Android phone running TapShare or scan a TapShare QR code to view a contact card.';
+          root.appendChild(err);
+          return;
+        }
+
+        document.title = (contact.name || 'Contact') + ' — TapShare';
+
+        var header = document.createElement('div');
+        header.className = 'header';
+
+        var avatar = document.createElement('div');
+        avatar.className = 'avatar';
+        avatar.textContent = computeInitials(contact.name);
+        header.appendChild(avatar);
+
+        var nameEl = document.createElement('h1');
+        nameEl.className = 'name';
+        nameEl.textContent = contact.name || 'Unnamed Contact';
+        header.appendChild(nameEl);
+
+        if (contact.company) {
+          var compEl = document.createElement('div');
+          compEl.className = 'company';
+          compEl.textContent = contact.company;
+          header.appendChild(compEl);
+        }
+
+        root.appendChild(header);
+
+        if (contact.phone || contact.email || contact.website) {
+          var list = document.createElement('div');
+          list.className = 'details-list';
+
+          if (contact.phone) {
+            var phoneLink = document.createElement('a');
+            phoneLink.className = 'detail-item';
+            phoneLink.href = 'tel:' + contact.phone;
+            var pLabel = document.createElement('span');
+            pLabel.className = 'detail-label';
+            pLabel.textContent = 'Phone';
+            var pVal = document.createElement('span');
+            pVal.className = 'detail-value';
+            pVal.textContent = contact.phone;
+            phoneLink.appendChild(pLabel);
+            phoneLink.appendChild(pVal);
+            list.appendChild(phoneLink);
+          }
+
+          if (contact.email) {
+            var emailLink = document.createElement('a');
+            emailLink.className = 'detail-item';
+            emailLink.href = 'mailto:' + contact.email;
+            var eLabel = document.createElement('span');
+            eLabel.className = 'detail-label';
+            eLabel.textContent = 'Email';
+            var eVal = document.createElement('span');
+            eVal.className = 'detail-value';
+            eVal.textContent = contact.email;
+            emailLink.appendChild(eLabel);
+            emailLink.appendChild(eVal);
+            list.appendChild(emailLink);
+          }
+
+          if (contact.website) {
+            var normalizedUrl = /^https?:\/\//i.test(contact.website)
+              ? contact.website
+              : 'https://' + contact.website;
+            var webLink = document.createElement('a');
+            webLink.className = 'detail-item';
+            webLink.href = normalizedUrl;
+            webLink.target = '_blank';
+            webLink.rel = 'noopener noreferrer';
+            var wLabel = document.createElement('span');
+            wLabel.className = 'detail-label';
+            wLabel.textContent = 'Website';
+            var wVal = document.createElement('span');
+            wVal.className = 'detail-value';
+            wVal.textContent = contact.website;
+            webLink.appendChild(wLabel);
+            webLink.appendChild(wVal);
+            list.appendChild(webLink);
+          }
+
+          root.appendChild(list);
+        }
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-save';
+        btn.textContent = 'Add to contacts';
+        btn.addEventListener('click', function () {
+          downloadVCard(contact);
+        });
+        root.appendChild(btn);
+      }
+
+      window.addEventListener('hashchange', render);
+      render();
+    })();
+  </script>
+</body>
+</html>
